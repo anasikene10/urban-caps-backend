@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
-
+app.use("/api/seed", seedRouter);
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
