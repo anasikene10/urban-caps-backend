@@ -59,6 +59,9 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  if (req.headers["x-admin-secret"] !== process.env.ADMIN_SECRET) {
+    return res.status(401).json({ error: "Non autorisé" });
+  }
   const orders = await prisma.order.findMany({
     orderBy: { createdAt: "desc" },
     include: { items: { include: { product: true } } },
