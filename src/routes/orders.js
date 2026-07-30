@@ -2,6 +2,7 @@ import { sendPushNotification } from "../services/push.js";
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { sendOrderConfirmationSms, sendAdminSmsAlert, sendAdminEmailAlert } from "../services/notifications.js";
+import { appendOrderToSheet } from "../services/sheets.js";
 
 const router = Router();
 
@@ -48,6 +49,7 @@ router.post("/", async (req, res) => {
     sendOrderConfirmationSms(order).catch((e) => console.error("SMS client non envoyé:", e.message));
     sendAdminSmsAlert(order).catch((e) => console.error("SMS admin non envoyé:", e.message));
     sendAdminEmailAlert(order).catch((e) => console.error("Email admin non envoyé:", e.message));
+    appendOrderToSheet(order).catch((e) => console.error("Google Sheet non mis à jour:", e.message));
     sendPushNotification(order).catch((e) => console.error("Push non envoyé:", e.message));
 
     res.status(201).json(order);
