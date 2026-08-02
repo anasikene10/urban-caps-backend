@@ -1,12 +1,11 @@
 import seedRouter from "./routes/seed.js";
+import resetProductsRouter from "./routes/reset-products.js";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import productsRouter from "./routes/products.js";
 import ordersRouter from "./routes/orders.js";
-
 const app = express();
-
 app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 app.use("/api/seed", seedRouter);
@@ -14,6 +13,5 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/reset-products", resetProductsRouter);
-
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Urban Caps API en écoute sur http://localhost:${port}`));
