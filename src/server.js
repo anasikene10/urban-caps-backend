@@ -13,6 +13,7 @@ app.use("/api/seed", seedRouter);
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/reset-products", resetProductsRouter);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Urban Caps API en écoute sur http://localhost:${port}`));
