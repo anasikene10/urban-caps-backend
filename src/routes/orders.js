@@ -9,10 +9,9 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { customerName, customerPhone, customerCity, customerAddr, paymentMethod, items } = req.body;
 
-  if (!customerName || !customerPhone || !customerCity || !customerAddr || !items?.length) {
+  if (!customerName || !customerPhone || !customerCity || !items?.length) {
     return res.status(400).json({ error: "Champs manquants" });
   }
-
   try {
     const order = await prisma.$transaction(async (tx) => {
       let subtotal = 0;
